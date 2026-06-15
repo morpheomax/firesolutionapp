@@ -1,0 +1,146 @@
+---
+import '../styles/global.css';
+import FirePumpLearningExperience from '../components/FirePumpLearningExperience.jsx';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+	componentOrder,
+	featuredBrands,
+	packagedPumpSystem,
+	semanticMemoryNotes,
+} from '../data/firePumpSystem.js';
+import electricReference from '../images_referencia/bomba-succion-final-motor-electrico.jpg';
+import packagedReference from '../images_referencia/sistema-prepaquetizado-2.jpg';
+
+const standards = packagedPumpSystem.designBasis.standards;
+const selectedBrands = packagedPumpSystem.designBasis.brands;
+---
+
+<BaseLayout
+	title="FireSolutions Academy | Sistemas Contra Incendio"
+	description="Visor educativo para aprender sistemas contra incendio normados por NFPA e implementados por fabricantes especializados."
+>
+	<main class="min-h-screen bg-[radial-gradient(circle_at_top,#dbeafe_0%,#f8fafc_30%,#e2e8f0_100%)] text-slate-900">
+		<section class="mx-auto flex w-full max-w-[1480px] flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
+			<div class="grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_22rem]">
+				<div class="rounded-2xl border border-white/55 bg-white/55 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+					<div class="flex flex-wrap items-start justify-between gap-4">
+						<div class="max-w-4xl">
+							<p class="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">FireSolutions Academy</p>
+							<h1 class="mt-3 max-w-4xl text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl xl:text-[2rem]">
+								Diseccion visual y educativa de sistemas contra incendio con criterio NFPA y referencias reales de fabricante.
+							</h1>
+							<p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:text-[15px]">
+								El modulo activo recrea una solucion paquetizada de bombeo para un centro de distribucion, organizada para que equipos tecnicos y comerciales puedan estudiar nombres, funciones, normas y relaciones entre componentes sin perder contexto operativo.
+							</p>
+						</div>
+						<div class="grid min-w-[220px] gap-2 text-right">
+							<div class="rounded-xl border border-slate-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-[0_12px_32px_rgba(15,23,42,0.16)]">
+								<p class="text-[11px] uppercase tracking-[0.24em] text-slate-300">Modulo activo</p>
+								<p class="mt-2 text-lg font-semibold">Centro de distribucion</p>
+								<p class="mt-1 text-sm text-slate-300">{packagedPumpSystem.designBasis.ratedFlowGpm} GPM · {packagedPumpSystem.designBasis.ratedPressurePsi} PSI</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-5 flex flex-wrap gap-2.5">
+						{standards.map((standard) => (
+							<span class="rounded-lg border border-white/70 bg-white/65 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm backdrop-blur">{standard}</span>
+						))}
+					</div>
+				</div>
+
+				<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+					<div class="rounded-2xl border border-white/55 bg-white/60 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+						<p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Base de diseno</p>
+						<div class="mt-3 grid grid-cols-2 gap-3">
+							<div class="rounded-xl border border-slate-200/80 bg-white/70 p-3">
+								<p class="text-xs text-slate-500">Caudal</p>
+								<p class="mt-1 text-2xl font-semibold text-slate-950">{packagedPumpSystem.designBasis.ratedFlowGpm}</p>
+								<p class="text-xs text-slate-500">GPM</p>
+							</div>
+							<div class="rounded-xl border border-slate-200/80 bg-white/70 p-3">
+								<p class="text-xs text-slate-500">Presion</p>
+								<p class="mt-1 text-2xl font-semibold text-slate-950">{packagedPumpSystem.designBasis.ratedPressurePsi}</p>
+								<p class="text-xs text-slate-500">PSI</p>
+							</div>
+							<div class="rounded-xl border border-slate-200/80 bg-white/70 p-3">
+								<p class="text-xs text-slate-500">Componentes</p>
+								<p class="mt-1 text-2xl font-semibold text-slate-950">{componentOrder.length}</p>
+							</div>
+							<div class="rounded-xl border border-slate-200/80 bg-white/70 p-3">
+								<p class="text-xs text-slate-500">Marcas</p>
+								<p class="mt-1 text-2xl font-semibold text-slate-950">{selectedBrands.length}</p>
+							</div>
+						</div>
+					</div>
+
+					<details class="rounded-2xl border border-white/55 bg-white/60 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+						<summary class="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-700">Supuestos del modulo</summary>
+						<ul class="mt-3 space-y-2.5 text-sm leading-6 text-slate-600">
+							{packagedPumpSystem.designBasis.assumptions.map((assumption) => <li>{assumption}</li>)}
+						</ul>
+					</details>
+				</div>
+			</div>
+
+			<FirePumpLearningExperience client:load />
+
+			<div class="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+				<section class="rounded-2xl border border-white/55 bg-white/60 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+					<p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-sky-700">Arquitectura educativa</p>
+					<div class="mt-4 grid gap-3 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+						{packagedPumpSystem.subsystems.map((subsystem) => (
+							<article class="rounded-xl border border-slate-200/80 bg-white/70 p-4">
+								<h3 class="text-sm font-semibold text-slate-900">{subsystem.title}</h3>
+								<p class="mt-2 text-sm leading-6 text-slate-600">{subsystem.description}</p>
+								<p class="mt-3 text-xs uppercase tracking-[0.18em] text-slate-500">{subsystem.componentIds.length} componentes</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<div class="grid gap-4">
+					<section class="rounded-2xl border border-white/55 bg-white/60 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+						<details>
+							<summary class="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-700">Referencias visuales</summary>
+							<div class="mt-4 grid gap-4 md:grid-cols-2">
+								<figure class="overflow-hidden rounded-xl border border-slate-200/80 bg-white/70">
+									<img src={electricReference.src} alt="Referencia visual de bomba electrica y controlador" class="h-48 w-full object-cover" />
+									<figcaption class="p-4 text-sm leading-6 text-slate-600">Referencia de tren electrico con bomba horizontal, motor, instrumentacion y tablero.</figcaption>
+								</figure>
+								<figure class="overflow-hidden rounded-xl border border-slate-200/80 bg-white/70">
+									<img src={packagedReference.src} alt="Referencia visual de skid paquetizado" class="h-48 w-full object-cover" />
+									<figcaption class="p-4 text-sm leading-6 text-slate-600">Referencia de sistema paquetizado con piping superior, diesel, test lineas y tanque auxiliar.</figcaption>
+								</figure>
+							</div>
+						</details>
+					</section>
+
+					<section class="rounded-2xl border border-white/55 bg-white/60 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/5 backdrop-blur-xl">
+						<details>
+							<summary class="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.24em] text-rose-700">Marcas, memoria y roadmap</summary>
+							<div class="mt-4 flex flex-wrap gap-2">
+								{featuredBrands.map((brand) => (
+									<span class="rounded-lg border border-slate-200/80 bg-white/70 px-3 py-1.5 text-sm text-slate-700">{brand.name}: {brand.focus}</span>
+								))}
+							</div>
+							<ul class="mt-5 space-y-2.5 text-sm leading-6 text-slate-600">
+								{semanticMemoryNotes.map((note) => <li>{note}</li>)}
+							</ul>
+							<div class="mt-5 grid gap-3 md:grid-cols-2">
+								{packagedPumpSystem.roadmap.map((item) => (
+									<article class="rounded-xl border border-slate-200/80 bg-white/70 p-4">
+										<div class="flex items-center justify-between gap-3">
+											<h3 class="text-sm font-semibold text-slate-900">{item.title}</h3>
+											<span class="rounded-md border border-slate-200 bg-white px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-500">{item.status}</span>
+										</div>
+									</article>
+								))}
+							</div>
+						</details>
+					</section>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

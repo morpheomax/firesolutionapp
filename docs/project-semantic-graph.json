@@ -1,0 +1,84 @@
+{
+  "project": {
+    "name": "firesolutions_app",
+    "purpose": "Plataforma educativa para visualizar, explicar e interactuar con sistemas contra incendio normados por NFPA y referencias reales de fabricantes.",
+    "stack": ["Astro", "React", "Three.js", "Tailwind CSS", "pnpm"],
+    "entryRoute": "/",
+    "activeLanguageMode": "bilingual-technical"
+  },
+  "knowledgeDomains": [
+    {
+      "id": "nfpa-standards",
+      "label": "Normativa NFPA",
+      "concepts": ["NFPA 13", "NFPA 20", "NFPA 22", "NFPA 24", "NFPA 25"],
+      "role": "Base normativa del contenido tecnico actual"
+    },
+    {
+      "id": "brands",
+      "label": "Fabricantes y marcas",
+      "concepts": ["SPP", "Clarke", "Tornatech", "ANSUL", "Simplex", "Notifier"],
+      "role": "Referencias activas del modulo 1 y roadmap de futuros modulos"
+    }
+  ],
+  "runtimeArchitecture": [
+    {
+      "source": "src/pages/index.astro",
+      "target": "src/layouts/BaseLayout.astro",
+      "relation": "uses layout"
+    },
+    {
+      "source": "src/pages/index.astro",
+      "target": "src/components/FirePumpLearningExperience.jsx",
+      "relation": "hydrates the educational experience shell with client:load inside a compact glass-style landing layout"
+    },
+    {
+      "source": "src/components/FirePumpLearningExperience.jsx",
+      "target": "src/components/FirePumpSystem3D.jsx",
+      "relation": "embeds the reusable 3D viewer while keeping selection controlled from the React shell"
+    },
+    {
+      "source": "src/components/FirePumpLearningExperience.jsx",
+      "target": "src/data/firePumpSystem.js",
+      "relation": "renders bilingual product, subsystem and component metadata"
+    },
+    {
+      "source": "src/components/FirePumpSystem3D.jsx",
+      "target": "src/data/firePumpSystem.js",
+      "relation": "reads shared component metadata for ids, colors and labels"
+    }
+  ],
+  "modules": [
+    {
+      "id": "distribution-center-packaged-pump-house",
+      "status": "active",
+      "baseline": "1500 GPM @ 120 PSI",
+      "viewerShell": "src/components/FirePumpLearningExperience.jsx",
+      "viewer": "src/components/FirePumpSystem3D.jsx",
+      "data": "src/data/firePumpSystem.js",
+      "learningGoal": "Explicar el circuito completo desde el estanque apernado hasta la red perimetral y los rociadores, con foco tecnico y comercial.",
+      "brands": ["SPP", "Clarke", "Tornatech"],
+      "expandedScope": [
+        "Estanque cilindrico tipo Supertank-style en reemplazo de la lectura rectangular inicial.",
+        "Tanque diesel visible y sistema de escape del driver Clarke.",
+        "Conexiones ranuradas como detalle constructivo del piping.",
+        "Continuidad visual hacia red perimetral, hidrantes, FDC y riser de rociadores.",
+        "Bodega semiabierta con red de rociadores visible para explicar el tramo final del circuito.",
+        "Modo de recorrido guiado y flujo hidraulico animado para entrenamiento secuencial.",
+        "Contexto logistico con racks de almacenamiento y andenes de carga para que el escenario se perciba como centro de distribucion real.",
+        "Controles embebidos de camara y techo desmontable para inspeccion superior."
+      ],
+      "recentChanges": [
+        "2026-06-14: se refino la UI con radios mas sutiles, tarjetas tipo glassmorphism sobrio y un layout mas compacto para que el bloque principal del visor y sus paneles aprovechen mejor la altura visible.",
+        "2026-06-14: se elimino el bucle de seleccion entre React y Three.js evitando que el visor reemita al padre una seleccion ya sincronizada y permitiendo click en vacio sin reseleccion forzada.",
+        "2026-06-13: se elimino el rebote de seleccion durante guided tour evitando que la UI reemplace la seleccion activa con el primer componente visible del subsistema."
+      ]
+    }
+  ],
+  "futureExpansion": [
+    "Agregar un tramo visible de red de rociadores y distribucion de bodega sobre la misma base de datos.",
+    "Incorporar modulo de FK-5-1-12 / Novec 1230 de baja presion para datacenter.",
+    "Incorporar modulo de CO2 de alta presion para datacenter.",
+    "Añadir deteccion convencional e inteligente con referencias Simplex y Notifier."
+  ],
+  "maintenanceRule": "Actualizar este grafo cuando cambien rutas, modulos, fuentes de datos o el alcance educativo principal."
+}
